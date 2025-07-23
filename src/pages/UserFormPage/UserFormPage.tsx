@@ -10,8 +10,6 @@ import {
 import { UserForm } from "@entities/user/ui/UserForm"
 import { UserFormValues } from "@entities/auth/model/types"
 import { Loader } from "@shared/ui/Loader"
-import axios, { AxiosError } from 'axios';
-
 
 interface UserFormPageProps {
   mode: "create" | "edit"
@@ -54,23 +52,6 @@ const UserFormPage: React.FC<UserFormPageProps> = ({ mode }) => {
       navigate("/")
     } catch (err: unknown) {
       console.error("Submit error:", err)
-
-      // Правильная проверка типа ошибки
-      if (err instanceof Error) {
-        if ("response" in err) {
-          // Обработка AxiosError
-          const axiosError = err as AxiosError
-          alert(
-            axiosError.response?.data?.message ||
-              axiosError.message ||
-              "Ошибка сервера"
-          )
-        } else {
-          alert(err.message)
-        }
-      } else {
-        alert("Неизвестная ошибка")
-      }
     }
   }
 
