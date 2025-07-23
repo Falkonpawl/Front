@@ -10,8 +10,8 @@ import {
 import { UserForm } from "@entities/user/ui/UserForm"
 import { UserFormValues } from "@entities/auth/model/types"
 import { Loader } from "@shared/ui/Loader"
-import axios from "axios"
-import type { AxiosError } from "axios"
+import axios, { AxiosError } from 'axios';
+
 
 interface UserFormPageProps {
   mode: "create" | "edit"
