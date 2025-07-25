@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://forms-server-master-production.up.railway.app/', // Полный URL до API
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
 export default instance;

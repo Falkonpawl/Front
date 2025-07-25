@@ -7,7 +7,7 @@ import {
 } from "react"
 import { getMe, logout } from "@shared/api/authApi"
 import { useNavigate } from "react-router-dom"
-import { User } from "@entities/user/model/types" // Обязательно: правильный импорт типа User
+import { User } from "@entities/user/model/types"
 
 interface AuthContextType {
   user: User | null

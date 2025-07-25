@@ -62,13 +62,11 @@ export const UserForm: React.FC<Props> = ({
       userAgreement: defaultValues.userAgreement ?? false,
     }
 
-    // Сбрасываем только если значения действительно изменились
     if (JSON.stringify(currentValues) !== JSON.stringify(newValues)) {
       reset(newValues)
     }
   }, [defaultValues, reset, getValues])
 
-  // Автозаполнение fullName
   const name = useWatch({ control, name: "name" })
   const surName = useWatch({ control, name: "surName" })
 
@@ -85,7 +83,6 @@ export const UserForm: React.FC<Props> = ({
 
     const { confirmPassword, ...payload } = data
 
-    // Преобразуем birthDate в ISO, если оно есть
     const transformedPayload = {
       ...payload,
       birthDate: new Date(data.birthDate).toISOString(),
@@ -186,7 +183,7 @@ export const UserForm: React.FC<Props> = ({
         })}
         error={!!errors.fullName}
         helperText={errors.fullName?.message}
-        slotProps={{ inputLabel: { shrink: true } }} // <-- вот эта строка решает наложение label
+        slotProps={{ inputLabel: { shrink: true } }} 
       />
 
       <TextField

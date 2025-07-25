@@ -1,5 +1,5 @@
 export interface User {
-  id: number | string; // Поддержка и чисел, и UUID
+  id: number | string;
   name: string;
   surName: string;
   fullName: string;
