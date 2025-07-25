@@ -1,20 +1,27 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Stack } from '@mui/material';
-import { useUsers, useDeleteUser } from '../model/hooks';
-import { useNavigate } from 'react-router-dom';
+import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import { Button, Stack } from "@mui/material"
+import { useUsers, useDeleteUser } from "../model/hooks"
+import { useNavigate } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
 
 export const UserTable = () => {
-  const { data = [], isLoading } = useUsers();
-  const { mutateAsync } = useDeleteUser();
-  const navigate = useNavigate();
+  const { data = [], isLoading } = useUsers()
+  const queryClient = useQueryClient()
+  const { mutateAsync } = useDeleteUser()
+  const navigate = useNavigate()
+
+  const handleDelete = async (id: string) => {
+    await mutateAsync(id)
+    queryClient.invalidateQueries({ queryKey: ["users"] })
+  }
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'email', headerName: 'Email', flex: 2 },
-    { field: 'fullName', headerName: 'Полное имя', flex: 2 },
+    { field: "id", headerName: "ID", flex: 1 },
+    { field: "email", headerName: "Email", flex: 2 },
+    { field: "fullName", headerName: "Полное имя", flex: 2 },
     {
-      field: 'actions',
-      headerName: 'Действия',
+      field: "actions",
+      headerName: "Действия",
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -28,7 +35,7 @@ export const UserTable = () => {
             size="small"
             variant="outlined"
             color="error"
-            onClick={() => mutateAsync(params.row.id)}
+            onClick={() => handleDelete(params.row.id)}
           >
             Удалить
           </Button>
@@ -36,7 +43,7 @@ export const UserTable = () => {
       ),
       flex: 3,
     },
-  ];
+  ]
 
   return (
     <DataGrid
@@ -46,5 +53,5 @@ export const UserTable = () => {
       style={{ height: 400 }}
       pageSizeOptions={[5, 10]}
     />
-  );
-};
+  )
+}
